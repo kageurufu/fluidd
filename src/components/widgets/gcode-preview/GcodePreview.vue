@@ -555,8 +555,4 @@ export default class GcodePreview extends Mixins(StateMixin) {
 svg {
   shape-rendering: geometricPrecision;
 }
-
-.layer .partExcluded {
-  fill: green
-}
 </style>
