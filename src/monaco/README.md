@@ -10,6 +10,9 @@ A big thank you to;
 - Microsoft for the log grammar definition
   https://github.com/microsoft/vscode/blob/main/extensions/log/syntaxes/log.tmLanguage.json
 
+- Microsoft for the python grammar definition
+  https://github.com/microsoft/vscode/blob/main/extensions/python/syntaxes/MagicPython.tmLanguage.json
+
 - NeekSandhu for the monaco textmate documentation and libs
   https://github.com/NeekSandhu/monaco-textmate
   https://github.com/NeekSandhu/monaco-editor-textmate
