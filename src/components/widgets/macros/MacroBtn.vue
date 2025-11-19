@@ -144,6 +144,13 @@ export default class MacroBtn extends Mixins(StateMixin) {
   mounted () {
     const gcode = this.macro.config?.gcode
 
+    if (this.macro.params) {
+      for (const [ name, param ] of Object.entries(this.macro.params)) {
+        const value = param.default || '';
+        this.$set(this.params, name, { value, reset: value });
+      }
+    }
+
     if (!gcode) return
 
     const paramNameForRawGcodeCommand = this.paramNameForRawGcodeCommand
