@@ -1563,8 +1563,16 @@ export interface BedSize {
 export interface GcodeCommands extends Record<string, GcodeCommand> {
 }
 
+export interface GCodeCommandParam {
+  type: "str" | "int" | "float" | "bool" | "enum";
+  required?: boolean;
+  default?: string | number;
+  choices?: Array<string | number>;
+}
+
 export interface GcodeCommand {
-  help?: string
+  help?: string;
+  params?: Record<string, GCodeCommandParam>;
 }
 
 export interface TimeEstimates {

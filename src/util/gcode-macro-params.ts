@@ -21,10 +21,13 @@ export const gcodeMacroParamDefault = (param: string) => {
 
 const gcodeMacroParams = (gcode: string) => {
   return [...gcode.matchAll(paramRegExp)]
-    .map(([, name, rest]) => ({
-      name,
-      value: gcodeMacroParamDefault(rest)
-    }))
+    .reduce((params, [, name, rest]) => ({
+      ...params,
+      [name]: {
+        type: "str",
+        default: gcodeMacroParamDefault(rest)
+      }
+    }), {})
 }
 
 export default gcodeMacroParams

@@ -1,6 +1,7 @@
 import type { GetterTree } from 'vuex'
 import type { Macro, MacroCategory, MacrosState } from './types'
 import type { RootState } from '../types'
+import gcodeMacroParams from '@/util/gcode-macro-params'
 
 export const MACRO_DEFAULTS = {
   alias: '',
@@ -27,9 +28,19 @@ export const getters = {
         const config = rootState.printer.printer.configfile.settings[lowerCaseKey]
         const stored = state.stored.find(macro => macro.name?.toLowerCase() === lowerCaseName)
         const variables = rootState.printer.printer[key]
-        const description = config && config.description !== 'G-Code macro'
-          ? config.description
-          : undefined
+        const command = (rootState.printer.printer.gcode?.commands || {})[name];
+        const description =
+          command && command.help !== 'G-Code macro'
+            ? command.help
+            : config && config.description !== 'G-Code macro'
+            ? config.description
+            : undefined;
+
+        const params = command?.params ?? (
+          config?.gcode
+            ? gcodeMacroParams(config.gcode)
+            : undefined
+        );
 
         const macro: Macro = {
           ...MACRO_DEFAULTS,
@@ -37,6 +48,7 @@ export const getters = {
           name,
           description,
           variables,
+          params,
           config
         }
 

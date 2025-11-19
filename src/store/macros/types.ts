@@ -1,4 +1,4 @@
-import type { KlipperPrinterGcodeMacroSettings } from '../printer/types'
+import type { KlipperPrinterGcodeMacroSettings, GCodeCommandParam } from '../printer/types';
 
 export interface MacrosState {
   stored: Macro[];
@@ -18,7 +18,8 @@ export interface Macro {
   color?: string;
   config?: KlipperPrinterGcodeMacroSettings;
   order?: number;
-  variables?: Record<string, unknown>
+  variables?: Record<string, unknown>;
+  params?: Record<string, GCodeCommandParam>
 }
 
 export interface MacroCategory {
