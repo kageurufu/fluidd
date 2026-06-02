@@ -132,6 +132,7 @@ export interface GeneralConfig {
   showBarometricPressure: boolean;
   showGasResistance: boolean;
   showSaveConfigAndRestart: boolean;
+  showSensorsAsTiles: boolean;
   showUploadAndPrint: boolean;
   flipConsoleLayout: boolean;
   cameraFullscreenAction: CameraFullscreenAction;

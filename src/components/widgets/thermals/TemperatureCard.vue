@@ -46,6 +46,17 @@
             </v-list-item-content>
           </v-list-item>
 
+          <v-list-item @click="showSensorsAsTiles = !showSensorsAsTiles">
+            <v-list-item-action class="my-0">
+              <v-checkbox :input-value="showSensorsAsTiles" />
+            </v-list-item-action>
+            <v-list-item-content>
+              <v-list-item-title>
+                {{ $t('app.setting.label.show_sensors_as_tiles') }}
+              </v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+
           <v-list-item @click="showRateOfChange = !showRateOfChange">
             <v-list-item-action class="my-0">
               <v-checkbox :input-value="showRateOfChange" />
@@ -182,6 +193,18 @@ export default class TemperatureCard extends Mixins(StateMixin, BrowserMixin) {
   set showRateOfChange (value: boolean) {
     this.$typedDispatch('config/saveByPath', {
       path: 'uiSettings.general.showRateOfChange',
+      value,
+      server: true
+    })
+  }
+
+  get showSensorsAsTiles (): boolean {
+    return this.$typedState.config.uiSettings.general.showSensorsAsTiles
+  }
+
+  set showSensorsAsTiles (value: boolean) {
+    this.$typedDispatch('config/saveByPath', {
+      path: 'uiSettings.general.showSensorsAsTiles',
       value,
       server: true
     })

@@ -190,8 +190,43 @@
             />
           </td>
         </tr>
+        <tr v-if="showSensorsAsTiles">
+          <td colspan="99">
+            <div style="display: flex; flex-direction: row; justify-content: space-between;">
+              <div
+                v-for="item in sensors"
+                :key="item.key"
+                style="display: flex; flex-direction: column; margin: 1em; text-align: center; flex-basis: fit-content"
+              >
+                <span
+                  :class="{ 'active': isLegendSelected(item) }"
+                  class="legend-item"
+                  @click="legendClick(item)"
+                >
+                  <v-icon
+                    small
+                    :color="item.color"
+                  >
+                    $thermometer
+                  </v-icon>
+                  {{ item.prettyName }}
+                </span>
+                <span v-if="item.temperature != null && !item.disconnected">
+                  {{ item.temperature.toFixed(1) }}<small>°C</small>
+                </span>
+                <span
+                  v-if="showRateOfChange"
+                  class="text-no-wrap legend-item"
+                >
+                  {{ getRateOfChange(item) }}<small>&deg;C</small>
+                </span>
+              </div>
+            </div>
+          </td>
+        </tr>
         <tr
           v-for="item in sensors"
+          v-else
           :key="item.key"
           @mouseenter="handleHeaterMouseEnter(item)"
           @mouseleave="handleHeaterMouseLeave"
@@ -400,6 +435,10 @@ export default class TemperatureTargets extends Mixins(StateMixin) {
 
   get showRateOfChange (): boolean {
     return this.$typedState.config.uiSettings.general.showRateOfChange
+  }
+
+  get showSensorsAsTiles (): boolean {
+    return this.$typedState.config.uiSettings.general.showSensorsAsTiles
   }
 
   get showRelativeHumidity (): boolean {
